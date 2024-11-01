@@ -47,6 +47,7 @@ print(numericValues)
 
 #----------------------------------------------Modeling-----------------------------------------------#
 
+# Choose specific variables for the model
 predictorVars <- c("WorkLifeBalance", "JobSatisfaction", "HourlyRate", "AgeGroups",
                    "YearsInCurrentRole", "JobInvolvement",
                    "YearsWithCurrManager", "YearsAtCompany", "Department",
@@ -56,6 +57,7 @@ dataModel <- caseStudy2[, c(predictorVars, "Attrition")]
 
 caseStudy2$Attrition <- as.factor(caseStudy2$Attrition)
 
+# Split the data into train and test sets
 set.seed(123)
 trainIndex <- createDataPartition(dataModel$Attrition, p=0.8, list=FALSE, times=1)
 trainData <- dataModel[trainIndex, ]
