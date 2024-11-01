@@ -72,3 +72,39 @@ nbConfusionMatrix <- confusionMatrix(factor(nbPrediction), factor(testData$Attri
 
 # View Naive Bayes Model Metrics
 print(nbConfusionMatrix)
+
+#----------------------------------------------Metrics-------------------------------------------------#
+
+# Another way to print the metrics (only the ones needed)
+# Extract metrics for Naive Bayes
+nbAccuracy <- nbConfusionMatrix$overall['Accuracy']
+nbSensitivity <- nbConfusionMatrix$byClass['Sensitivity']
+nbSpecificity <- nbConfusionMatrix$byClass['Specificity']
+nbF1 <- 2 * ((nbConfusionMatrix$byClass['Precision'] * nbConfusionMatrix$byClass['Sensitivity']) /
+                (nbConfusionMatrix$byClass['Precision'] + nbConfusionMatrix$byClass['Sensitivity']))
+
+# Display Naive Bayes Metrics
+cat("Naive Bayes Model Metrics:\n", 
+    "Accuracy:", nbAccuracy, 
+    "\nSensitivity:", nbSensitivity, 
+    "\nSpecificity:", nbSpecificity, 
+    "\nF1 Score:", nbF1, "\n")
+
+#--------------------------------------------Competition-----------------------------------------------#
+
+# Read in NoAttrition file
+competition <- read.csv(file.choose())
+
+head(competition)
+
+# Make predictions
+compPrediction <- predict(nbModel, competition) 
+
+compResults <- data.frame(ID=competition$ID, Attrition = compPrediction)
+compResults$Attrition <- ifelse(compResults$Attrition == 1, "Yes", "No")
+print(compResults)
+
+#----------------------------------------------CSV File-------------------------------------------------#
+
+# Export competition results to a .csv file
+write.csv(compResults, "/Users/Zainab/Desktop/FritoLayCaseStudyAttrition.csv", row.names=FALSE)
