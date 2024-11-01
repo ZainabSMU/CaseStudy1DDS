@@ -8,6 +8,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Here is the YouTube link to the EDA: https://youtu.be/AckbNHGIW-4
 
 library(tidyverse)
 library(ggplot2)
