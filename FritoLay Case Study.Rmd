@@ -1,0 +1,73 @@
+---
+title: "FritoLay Case Study"
+author: "Zainab Anwar"
+date: "2024-10-31"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(caret)
+library(e1071) # Naive Bayes
+library(class) # KNN
+
+# Read in CaseStudy1 file
+caseStudy2 <- read.csv(file.choose())
+
+# Dimensions (rows x columns)
+dim(caseStudy2)
+
+# Check for NAs
+sum(is.na(caseStudy2))
+
+# Summary of stats
+summary(caseStudy2)
+
+# Check for duplicate rows
+sum(duplicated(caseStudy2))
+
+# Check structure/data types of the dataset
+str(caseStudy2)
+
+#---------------------------Separating numerical and categorical vars---------------------------------#
+
+# Find and separate the numeric data types and store them in a variable
+numericValues <- names(caseStudy2)[sapply(caseStudy2, is.numeric)]
+
+# Print out values
+print(numericValues)
+
+#----------------------------------------------Modeling-----------------------------------------------#
+
+predictorVars <- c("WorkLifeBalance", "JobSatisfaction", "HourlyRate", "AgeGroups",
+                   "YearsInCurrentRole", "JobInvolvement",
+                   "YearsWithCurrManager", "YearsAtCompany", "Department",
+                   "OverTime", "JobRole", "MaritalStatus", "MonthlyIncome", "JobLevel", "TotalWorkingYears")  
+
+dataModel <- caseStudy2[, c(predictorVars, "Attrition")]
+
+caseStudy2$Attrition <- as.factor(caseStudy2$Attrition)
+
+set.seed(123)
+trainIndex <- createDataPartition(dataModel$Attrition, p=0.8, list=FALSE, times=1)
+trainData <- dataModel[trainIndex, ]
+testData <- dataModel[-trainIndex, ]
+
+#--------------------------------------------Naive Bayes-----------------------------------------------#
+
+# Train Naive Bayes Model
+nbModel <- naiveBayes(Attrition ~ ., data = trainData, laplace=1)
+
+# Make predictions
+nbPrediction <- predict(nbModel, testData)
+
+# Confusion Matrix for Naive Bayes
+nbConfusionMatrix <- confusionMatrix(factor(nbPrediction), factor(testData$Attrition))
+
+# View Naive Bayes Model Metrics
+print(nbConfusionMatrix)
