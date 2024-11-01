@@ -8,15 +8,25 @@ For this case study, we are given a data set that contains a list of employees, 
 ## Company and Customer Overview
 Our company, DDSAnalytics, is an analytics company that specializes in talent management solutions for Fortune 100 companies. To gain a competitive edge over its competition, we have been hired by Frito Lay to identify factors related to employee attrition. Frito Lay aims to predict employee attrition in order to identify those employees who may be more likely to leave the company as well as identifying factors that are related to attrition so that they can best reduce the probability of attrition where desired. 
 
-## Question of Interest
+## Question of Interest and Setting
 What are the top three factors that contribute to employee attrition?
 We will conduct an Exploratory Data Analysis where we cover the following:
 - Establish possible factors leading to employee attrition ​
 - Explore trends in the data​
 - Predict causes leading to employee attrition using Naïve Bayes model​
 
-## Factors Identified
+## Significant Factors Identified
 We found the top 3 factors that relate to employee attrition according to our Exploratory Data Analysis
 - Job Satisfaction​
 - Work life balance​
 - Monthly Income
+
+## Naive Bayes Model
+The following are some metrics from our prediction model:
+  - Accuracy: 84.48%
+  - Sensitivity: 86.99% ​
+  - Specificity:​ 71.43%
+  - F1:​ 90.39%
+
+## Takeaways
+The evidence from this Exploratory Data Analysis suggests that in order to reduce the probability of attrition, our client Frito Lay needs to try and increase their employees' job satisfaction and work-life balance, and focus on adjusting monthly incomes where possible.
